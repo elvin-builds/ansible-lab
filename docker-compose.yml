@@ -1,0 +1,18 @@
+services:
+  web:
+    image: ubuntu:24.04
+    command: bash -c "apt-get update && apt-get install -y openssh-server python3 && mkdir /run/sshd && echo 'root:labpass123' | chpasswd && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && /usr/sbin/sshd -D"
+    ports:
+      - "2201:22"
+
+  db:
+    image: ubuntu:24.04
+    command: bash -c "apt-get update && apt-get install -y openssh-server python3 && mkdir /run/sshd && echo 'root:labpass123' | chpasswd && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && /usr/sbin/sshd -D"
+    ports:
+      - "2202:22"
+
+  monitoring:
+    image: ubuntu:24.04
+    command: bash -c "apt-get update && apt-get install -y openssh-server python3 && mkdir /run/sshd && echo 'root:labpass123' | chpasswd && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && /usr/sbin/sshd -D"
+    ports:
+      - "2203:22"

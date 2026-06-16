@@ -1,0 +1,9 @@
+---
+common_packages:
+  - curl
+  - wget
+  - vim
+  - htop
+  - tree
+
+enable_firewall: false

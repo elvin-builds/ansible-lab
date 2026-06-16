@@ -1,0 +1,16 @@
+---
+- name: Create monitoring directory
+  file:
+    path: /opt/monitoring
+    state: directory
+    mode: '0755'
+
+- name: Create Prometheus config
+  template:
+    src: prometheus.yml.j2
+    dest: /opt/monitoring/prometheus.yml
+
+- name: Create monitoring status file
+  copy:
+    content: "Monitoring configured: Prometheus on {{ prometheus_port }}, Grafana on {{ grafana_port }}"
+    dest: /opt/monitoring/status.txt

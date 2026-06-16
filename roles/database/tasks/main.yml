@@ -1,0 +1,31 @@
+---
+- name: Install PostgreSQL
+  apt:
+    name:
+      - postgresql
+      - postgresql-contrib
+    state: present
+    update_cache: yes
+
+- name: Ensure PostgreSQL is running
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Create database config
+  template:
+    src: pg_config.j2
+    dest: /etc/postgresql/pg_custom.conf
+  notify: Restart PostgreSQL
+
+- name: Create DB credentials file
+  copy:
+    content: |
+      DB_NAME={{ db_name }}
+      DB_USER={{ db_user }}
+      DB_PASSWORD={{ db_password }}
+      DB_PORT={{ db_port }}
+    dest: /opt/db_credentials.conf
+    mode: '0600'
+

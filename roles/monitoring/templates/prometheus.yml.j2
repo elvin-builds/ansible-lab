@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'web'
+    static_configs:
+      - targets: ['{{ hostvars["web"]["ansible_host"] }}:{{ nginx_port }}']
+
+  - job_name: 'db'
+    static_configs:
+      - targets: ['{{ hostvars["db"]["ansible_host"] }}:{{ db_port }}']

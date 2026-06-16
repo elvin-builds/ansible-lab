@@ -1,0 +1,27 @@
+---
+- name: Common setup for all servers
+  hosts: all
+  roles:
+    - common
+
+- name: Configure web servers
+  hosts: web
+  vars:
+    nginx_port: 80
+    server_name: devops-lab
+    app_port: 5000
+  roles:
+    - webserver
+
+- name: Configure database servers
+  hosts: db
+  roles:
+    - database
+
+- name: Configure monitoring
+  hosts: monitoring
+  vars:
+    nginx_port: 80
+    db_port: 5432
+  roles:
+    - monitoring

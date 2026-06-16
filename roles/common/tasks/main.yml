@@ -1,0 +1,26 @@
+---
+- name: Install packages using loop
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ common_packages }}"
+
+- name: Create multiple users
+  user:
+    name: "{{ item.name }}"
+    shell: "{{ item.shell }}"
+    create_home: yes
+  loop:
+    - { name: deploy, shell: /bin/bash }
+    - { name: monitor, shell: /bin/sh }
+    - { name: backup, shell: /bin/bash }
+
+- name: Install firewall (only if enabled)
+  apt:
+    name: ufw
+    state: present
+  when: enable_firewall | bool
+
+- name: Show server info
+  debug:
+    msg: "Host: {{ inventory_hostname }}, OS: {{ ansible_distribution }}"
